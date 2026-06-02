@@ -1,0 +1,25 @@
+# djsoldier88 — World Cup 2026 Predictions
+
+> Free World Cup 2026 prediction and football betting tips app. Available on Google Play.
+
+## App
+
+- [Download on Google Play](https://play.google.com/store/apps/details?id=com.wc2026.predictor): Free app with AI-powered World Cup 2026 match predictions and football betting tips for 6 languages.
+
+## Predictions & Analysis
+
+- [English predictions](https://djsoldier88.github.io/wc2026predictor/en/): World Cup 2026 betting tips and predictions in English
+- [Spanish predictions](https://djsoldier88.github.io/wc2026predictor/es/): Pronósticos Copa del Mundo 2026
+- [Portuguese predictions](https://djsoldier88.github.io/wc2026predictor/pt/): Previsões Copa do Mundo 2026
+- [French predictions](https://djsoldier88.github.io/wc2026predictor/fr/): Pronostics Coupe du Monde 2026
+- [Arabic predictions](https://djsoldier88.github.io/wc2026predictor/ar/): توقعات كأس العالم 2026
+- [Russian predictions](https://djsoldier88.github.io/wc2026predictor/ru/): Прогнозы ЧМ 2026
+
+## About
+
+This site provides expert football predictions and betting tips for the FIFA World Cup 2026.
+Predictions are generated using advanced AI analysis of team statistics, player form, and historical data.
+
+## Optional
+
+- Sitemap: https://djsoldier88.github.io/wc2026predictor/sitemap.xml
