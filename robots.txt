@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# AI/LLM Crawlers — explicitly welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+Sitemap: https://djsoldier88.github.io/wc2026predictor/sitemap.xml
