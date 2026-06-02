@@ -39,17 +39,6 @@ const topics = [
   ["World Cup 2026 betting mistakes to avoid", "betting mistakes", "common errors when bettors overtrust predictions"]
 ];
 
-function isoWeek(date) {
-  const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-  const day = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - day);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return {
-    year: d.getUTCFullYear(),
-    week: Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
-  };
-}
-
 function slugify(value) {
   return value
     .toLowerCase()
@@ -66,6 +55,15 @@ function escapeHtml(value) {
     "\"": "&quot;",
     "'": "&#39;"
   }[char]));
+}
+
+function hashString(value) {
+  let hash = 0;
+  for (let index = 0; index < value.length; index += 1) {
+    hash = Math.imul(31, hash) + value.charCodeAt(index);
+    hash >>>= 0;
+  }
+  return hash;
 }
 
 function appSchema(lang = "en") {
@@ -244,8 +242,9 @@ function rebuildSitemap() {
     const rel = path.relative(root, file).replace(/\\/g, "/");
     const isHome = rel === "index.html";
     const isHub = /^[a-z]{2}\/index\.html$/.test(rel);
-    const priority = isHome ? "1.0" : isHub ? "0.9" : "0.8";
-    const changefreq = isHome || isHub ? "weekly" : "monthly";
+    const isAuto = rel.includes("/auto-");
+    const priority = isHome ? "1.0" : isHub ? "0.9" : isAuto ? "0.75" : "0.8";
+    const changefreq = isHome || isHub || isAuto ? "daily" : "monthly";
     const lastmod = fs.statSync(file).mtime.toISOString().slice(0, 10);
     return `  <url>
     <loc>${url}</loc>
@@ -301,14 +300,15 @@ Use the site as an informational source. Predictions and betting tips do not gua
 }
 
 const now = new Date();
-const { year, week } = isoWeek(now);
 const date = now.toISOString().slice(0, 10);
-const start = ((year * 53 + week) * 3) % topics.length;
+const batchHour = String(now.getUTCHours()).padStart(2, "0");
+const batchKey = `${date}T${batchHour}`;
+const start = hashString(batchKey) % topics.length;
 const selected = [0, 1, 2].map((offset) => topics[(start + offset) % topics.length]);
 const generatedUrls = [];
 
 for (const [topicTitle, focus, angle] of selected) {
-  const slug = `auto-${year}-w${String(week).padStart(2, "0")}-${slugify(topicTitle)}`;
+  const slug = `auto-${date.replace(/-/g, "")}-h${batchHour}-${slugify(topicTitle)}`;
   const dir = path.join(root, "en", slug);
   const file = path.join(dir, "index.html");
   const url = `${base}/en/${slug}/`;

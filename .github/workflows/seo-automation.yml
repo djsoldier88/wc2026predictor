@@ -3,7 +3,7 @@ name: SEO automation
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 9 * * 2"
+    - cron: "0 4,10,16,20 * * *"
 
 permissions:
   contents: write
@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Generate weekly SEO pages
+      - name: Generate SEO pages
         run: node scripts/seo-automation.mjs
 
       - name: Commit generated changes
@@ -34,7 +34,7 @@ jobs:
             echo "No SEO changes to commit."
           else
             git add -A
-            git commit -m "Publish weekly SEO discovery pages"
+            git commit -m "Publish SEO discovery pages"
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
